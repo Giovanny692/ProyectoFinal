@@ -1,0 +1,1 @@
+#este archivo maneja las entradas a la base de datos
