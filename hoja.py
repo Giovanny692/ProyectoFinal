@@ -39,18 +39,18 @@ class Hoja():
 
      #Entrada de cada campo
      #Nombre
-     entry_nombre = tk.Entry(self.frame)
-     entry_nombre.config(width= 25, state= 'disabled' ,font= (('Arial', 12)))
-     entry_nombre.grid(row = 0, column=1, padx= 10, pady=10)
+     self.entry_nombre = tk.Entry(self.frame)
+     self.entry_nombre.config(width= 25, state= 'disabled' ,font= (('Arial', 12)))
+     self.entry_nombre.grid(row = 0, column=1, padx= 10, pady=10)
 
      #Duracion
-     entry_duracion = tk.Entry(self.frame)
-     entry_duracion.config(width= 25, state= 'disabled' ,font= (('Arial', 12)))
-     entry_duracion.grid(row = 1, column=1, padx= 10, pady=10)
+     self.entry_hora = tk.Entry(self.frame)
+     self.entry_hora.config(width= 25, state= 'disabled' ,font= (('Arial', 12)))
+     self.entry_hora.grid(row = 1, column=1, padx= 10, pady=10)
      #Genero
-     entry_genero = tk.Entry(self.frame)
-     entry_genero.config(width= 25, state= 'disabled' ,font= (('Arial', 12)))
-     entry_genero.grid(row = 2, column=1, padx= 10, pady=10)
+     self.entry_id = tk.Entry(self.frame)
+     self.entry_id.config(width= 25, state= 'disabled' ,font= (('Arial', 12)))
+     self.entry_id.grid(row = 2, column=1, padx= 10, pady=10)
         
         
      #Botones
@@ -65,6 +65,7 @@ class Hoja():
      boton_cancelar = tk.Button(self.frame, text = 'Cancelar')
      boton_cancelar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_cancelar.grid(row =4, column=2, padx=10, pady=10)
+    
 
     
 
