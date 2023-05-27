@@ -3,25 +3,47 @@ import tkinter as tk
 
 class Hoja():
   def __init__(self,root = None):
-    root = tk.Tk()
-    root.title("Registro")
-    root.geometry("800x480")
-    self.crear_fmenu(root)
+    self.root = tk.Tk()
+    self.root.title("Registro")
+    self.root.geometry("800x480")
+    self.frame=None
+    self.frameresidentes=None
+    self.crear_fmenu()
     self.crear_barramenu(root)
-    self.poner_campos()
-    root.mainloop()
+    self.root.mainloop()
 
 
-  def crear_fmenu(self,root):
-    self.frame = tk.Frame(root)
-    self.frame.pack()
+  def crear_fmenu(self):  
+    if (self.frame==None and self.frameresidentes==None):      
+     self.frame = tk.Frame(self.root)
+     self.poner_campos()
+     self.frame.pack()
+    else:
+     if (self.frameresidentes!=None):     
+      self.frameresidentes.destroy()
+      self.frameresidentes=None
+      self.frame = tk.Frame(self.root)
+      self.poner_campos()
+      self.frame.pack()
+
+    
+  def crear_listaresidentes(self): 
+    if (self.frameresidentes==None): 
+     self.frame.destroy()  
+     self.frameresidentes = tk.Frame(self.root) 
+     label_ejemplo=tk.Label(self.frameresidentes,text='Algo')
+     label_ejemplo.config(font= (('Arial', 12, 'bold')))
+     label_ejemplo.grid(row = 0, column=0, padx= 10, pady=10)
+     self.frameresidentes.pack()
+     self.frame=None
 
   def crear_barramenu(self,root):
     barra_menu = tk.Menu(root)
     menu_inicio = tk.Menu(barra_menu, tearoff=0)
-    root.config(menu= barra_menu,width=300,height=300)
+    self.root.config(menu= barra_menu,width=300,height=300)
     barra_menu.add_cascade(label = "Inicio",menu =menu_inicio)
-    menu_inicio.add_command(label = "Hacer algo")
+    menu_inicio.add_command(label = "Registrar persona",command=self.crear_fmenu)
+    menu_inicio.add_command(label="ver lista de residentes",command=self.crear_listaresidentes)
 
   def poner_campos(self):
      #nombre
@@ -54,7 +76,7 @@ class Hoja():
         
         
      #Botones
-     boton_nuevo = tk.Button(self.frame, text = 'Nuevo')
+     boton_nuevo = tk.Button(self.frame, text = 'Nuevo',command=self.enable_espacios)
      boton_nuevo.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_nuevo.grid(row =4, column=0, padx=10, pady=10)
 
@@ -65,6 +87,11 @@ class Hoja():
      boton_cancelar = tk.Button(self.frame, text = 'Cancelar')
      boton_cancelar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_cancelar.grid(row =4, column=2, padx=10, pady=10)
+  
+  def enable_espacios(self):
+    self.entry_id.config(state='normal')   
+    self.entry_hora.config(state='normal')
+    self.entry_nombre.config(state='normal')
     
 
     
