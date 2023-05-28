@@ -122,6 +122,11 @@ class Hoja():
      boton_editar = tk.Button(self.frame, text = 'Editar',command=self.editar_visitante)
      boton_editar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_editar.grid(row =8, column=1, padx=10, pady=10)
+     
+     boton_borrar = tk.Button(self.frame, text = 'Eliminar',command=self.remover_visitante)
+     boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
+     boton_borrar.grid(row =8, column=2, padx=10, pady=10)
+  
   
   def enable_espacios(self):
     self.checkbox_vehiculo.config(state='normal')
@@ -200,7 +205,14 @@ class Hoja():
     self.entry_hora_entrada.insert(0,horaaenv)
     self.entry_hora_salida.insert(0,horasalv)
     self.entry_placa.config(state='normal')
-    self.entry_placa.insert(0,placav)     
+    self.entry_placa.insert(0,placav)  
+  
+  def remover_visitante(self):
+    self.id_visitante=self.tabla_visitantes.item(self.tabla_visitantes.selection())['text']
+    entrada = Entrada()
+    entrada.eliminar_visitante(self.id_visitante)
+    self.dibujar_tabla_visitantes()
+    self.id_visitante=None     
      
       
 

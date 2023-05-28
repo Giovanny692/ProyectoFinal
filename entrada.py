@@ -1,6 +1,7 @@
 #clase que maneja coneccion a base de datos
 import sqlite3
 from persona import Persona, Residente
+from tkinter import messagebox
 class Entrada:
     
     def conectar_db(self):
@@ -30,4 +31,14 @@ class Entrada:
         WHERE numero={id_persona}"""
         self.cursor.execute(sql)
         self.cerrar_db()
+    def eliminar_visitante(self,id_visitante):
+        self.conectar_db()
+        try:
+         sql = f'DELETE FROM visitantes WHERE numero= {id_visitante}'
+         self.cursor.execute(sql)
+        except:
+         titulo = 'error'
+         message = 'Seleccione una entrada para eliminarla' 
+         messagebox.showinfo(titulo,message)   
+        self.cerrar_db()    
           
