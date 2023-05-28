@@ -23,4 +23,11 @@ class Entrada:
         lista_visitantes = self.cursor.fetchall()
         self.cerrar_db()
         return lista_visitantes
+    def editar_visitante(self,persona,id_persona):
+        self.conectar_db()
+        sql = f"""UPDATE visitantes SET Nombre='{persona.nombre}',Identificacion='{persona.id}',
+        Hora_entrada='{persona.hora_entrada}',Hora_salida='{persona.hora_salida}',Placa='{persona.placa}'
+        WHERE numero={id_persona}"""
+        self.cursor.execute(sql)
+        self.cerrar_db()
           

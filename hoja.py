@@ -11,6 +11,7 @@ class Hoja():
     self.root.geometry("1300x600")
     self.frame=None
     self.frameresidentes=None
+    self.id_visitante=None
     self.crear_fmenu()
     self.crear_barramenu(root)
     self.root.mainloop()
@@ -117,6 +118,10 @@ class Hoja():
      boton_cancelar = tk.Button(self.frame, text = 'Cancelar',command=self.desable_espacios)
      boton_cancelar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_cancelar.grid(row =6, column=2, padx=10, pady=10)
+     
+     boton_editar = tk.Button(self.frame, text = 'Editar',command=self.editar_visitante)
+     boton_editar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
+     boton_editar.grid(row =8, column=1, padx=10, pady=10)
   
   def enable_espacios(self):
     self.checkbox_vehiculo.config(state='normal')
@@ -171,9 +176,31 @@ class Hoja():
       placa = self.entry_placa.get()
       visitante = Persona(hora_entrada,hora_salida,identiciacion,nombre,placa)
       entrada = Entrada()
-      entrada.registrar_visitante(visitante)
-      entrada.cerrar_db()
-      self.dibujar_tabla_visitantes()
+      if self.id_visitante==None:
+       entrada.registrar_visitante(visitante)
+       entrada.cerrar_db()
+       self.dibujar_tabla_visitantes()
+       self.desable_espacios()
+      else:
+       entrada.editar_visitante(visitante,self.id_visitante)
+       self.dibujar_tabla_visitantes()   
+       self.desable_espacios()
+       self.id_visitante=None   
+      
+  def editar_visitante(self):
+    self.id_visitante=self.tabla_visitantes.item(self.tabla_visitantes.selection())['text']
+    nombrev = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][0]
+    idv = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][1] 
+    horaaenv = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][2] 
+    horasalv = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][3]
+    placav = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][4] 
+    self.enable_espacios()
+    self.entry_nombre.insert(0,nombrev)
+    self.entry_id.insert(0,idv)
+    self.entry_hora_entrada.insert(0,horaaenv)
+    self.entry_hora_salida.insert(0,horasalv)
+    self.entry_placa.config(state='normal')
+    self.entry_placa.insert(0,placav)     
      
       
 
