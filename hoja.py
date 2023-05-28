@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 from persona import Persona
 from entrada import Entrada
+from novedad import Novedad
 
 class Hoja():
   def __init__(self,root = None):
@@ -10,7 +11,7 @@ class Hoja():
     self.root.title("Registro")
     self.root.geometry("1300x600")
     self.frame=None
-    self.frameresidentes=None
+    self.framenovedades=None
     self.id_visitante=None
     self.crear_fmenu()
     self.crear_barramenu(root)
@@ -18,29 +19,25 @@ class Hoja():
 
 
   def crear_fmenu(self):  
-    if (self.frame==None and self.frameresidentes==None):      
+    if (self.frame==None and self.framenovedades==None):      
      self.frame = tk.Frame(self.root)
      self.poner_campos()
      self.dibujar_tabla_visitantes()
      self.frame.pack()
     else:
-     if (self.frameresidentes!=None):     
-      self.frameresidentes.destroy()
-      self.frameresidentes=None
+     if (self.framenovedades!=None):     
+      self.framenovedades.borrar_frame_novedad()
+      self.framenovedades=None
       self.frame = tk.Frame(self.root)
       self.poner_campos()
       self.dibujar_tabla_visitantes()
       self.frame.pack()
 
     
-  def crear_listaresidentes(self): 
-    if (self.frameresidentes==None): 
-     self.frame.destroy()  
-     self.frameresidentes = tk.Frame(self.root) 
-     label_ejemplo=tk.Label(self.frameresidentes,text='Algo')
-     label_ejemplo.config(font= (('Arial', 12, 'bold')))
-     label_ejemplo.grid(row = 0, column=0, padx= 10, pady=10)
-     self.frameresidentes.pack()
+  def crear_novedades(self): 
+    if (self.framenovedades==None): 
+     self.frame.destroy() 
+     self.framenovedades = Novedad(self.root)
      self.frame=None
 
   def crear_barramenu(self,root):
@@ -49,7 +46,7 @@ class Hoja():
     self.root.config(menu= barra_menu,width=300,height=300)
     barra_menu.add_cascade(label = "Inicio",menu =menu_inicio)
     menu_inicio.add_command(label = "Registrar persona",command=self.crear_fmenu)
-    menu_inicio.add_command(label="ver lista de residentes",command=self.crear_listaresidentes)
+    menu_inicio.add_command(label="Crear Novedad",command=self.crear_novedades)
 
   def poner_campos(self):
      #nombre
