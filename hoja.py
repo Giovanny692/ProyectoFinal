@@ -1,6 +1,8 @@
 #este archivo maneja la interfaz
 import tkinter as tk
 from tkinter import ttk
+from persona import Persona
+from entrada import Entrada
 
 class Hoja():
   def __init__(self,root = None):
@@ -108,7 +110,7 @@ class Hoja():
      boton_nuevo.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_nuevo.grid(row =6, column=0, padx=10, pady=10)
 
-     boton_guardar = tk.Button(self.frame, text = 'Guardar')
+     boton_guardar = tk.Button(self.frame, text = 'Guardar',command=self.registrar_visitante)
      boton_guardar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_guardar.grid(row =6, column=1, padx=10, pady=10)
     
@@ -151,6 +153,17 @@ class Hoja():
     self.tabla_visitantes.heading('#3',text='Hora entrada')
     self.tabla_visitantes.heading('#4',text='Hora salida')
     self.tabla_visitantes.heading('#5',text='Placa')
+  
+  def registrar_visitante(self):
+      nombre = self.entry_nombre.get()
+      identiciacion = self.entry_id.get()
+      hora_entrada = self.entry_hora_entrada.get()
+      hora_salida = self.entry_hora_salida.get()
+      placa = self.entry_placa.get()
+      visitante = Persona(hora_entrada,hora_salida,identiciacion,nombre,placa)
+      entrada = Entrada()
+      entrada.registrar_visitante(visitante)
+      entrada.cerrar_db()
      
       
 

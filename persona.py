@@ -1,21 +1,16 @@
 #este archivo maneja empleados y personas
 
 class Persona():
-  def __init__(self,horas,id,nombre):
-    self.horas = horas
+  def __init__(self,hora_entrada,hora_salida,id,nombre,placa):
+    self.hora_entrada = hora_entrada
+    self.hora_salida=hora_salida
     self.id = id
     self.nombre = nombre
-
-  def getnombre(self):
-    return self.nombre
-  def getid(self):
-    return self.id
-  def gethoras(self):
-    return self.horas
+    self.placa = placa
 
 class Residente(Persona):
-  def __init__(self,residencia,horas,id,nombre):
-    super().__init__(horas,id,nombre)
+  def __init__(self,residencia,horas,id,nombre,placa):
+    super().__init__(horas,id,nombre,placa)
     self.residencia = residencia
 
 class Trabajador(Persona):
