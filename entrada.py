@@ -16,4 +16,11 @@ class Entrada:
         sql = f"""INSERT INTO visitantes (Nombre, Identificacion, Hora_entrada, Hora_salida, Placa) 
         VALUES('{persona.nombre}','{persona.id}','{persona.hora_entrada}','{persona.hora_salida}','{persona.placa}')"""
         self.cursor.execute(sql)
-        
+    def listar_visitantes(self):
+        self.conectar_db()
+        sql = 'SELECT * FROM visitantes'  
+        self.cursor.execute(sql)
+        lista_visitantes = self.cursor.fetchall()
+        self.cerrar_db()
+        return lista_visitantes
+          

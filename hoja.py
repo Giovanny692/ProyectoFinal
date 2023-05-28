@@ -145,14 +145,23 @@ class Hoja():
   
   #tabla de visitantes  
   def dibujar_tabla_visitantes(self):
+    entrada = Entrada()    
     self.tabla_visitantes=ttk.Treeview(self.frame,column=('Nombre','ID','Hora entrada','Hora salida','Placa'))
-    self.tabla_visitantes.grid(row=7,column=0,columnspan=4)
+    self.tabla_visitantes.grid(row=7,column=0,columnspan=4,sticky='nse')
+    scroll = tk.Scrollbar(self.frame,orient='vertical',command=self.tabla_visitantes.yview)
+    scroll.grid(row=7,column=5,sticky='nse')
+    self.tabla_visitantes.configure(yscrollcommand=scroll.set)
     self.tabla_visitantes.heading('#0',text='Numero')
     self.tabla_visitantes.heading('#1',text='Nombre')
     self.tabla_visitantes.heading('#2',text='Identificacion')
     self.tabla_visitantes.heading('#3',text='Hora entrada')
     self.tabla_visitantes.heading('#4',text='Hora salida')
     self.tabla_visitantes.heading('#5',text='Placa')
+    lista_visitantes = entrada.listar_visitantes()
+    lista_visitantes.reverse()
+    for visitante in lista_visitantes:
+          self.tabla_visitantes.insert('',0,text=visitante[0],values=(visitante[1],visitante[2],visitante[3],visitante[4],visitante[5]))
+          
   
   def registrar_visitante(self):
       nombre = self.entry_nombre.get()
@@ -164,6 +173,7 @@ class Hoja():
       entrada = Entrada()
       entrada.registrar_visitante(visitante)
       entrada.cerrar_db()
+      self.dibujar_tabla_visitantes()
      
       
 
