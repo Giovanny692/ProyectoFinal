@@ -211,6 +211,7 @@ class Hoja():
     self.id_visitante=self.tabla_visitantes.item(self.tabla_visitantes.selection())['text']
     entrada = Entrada()
     entrada.eliminar_visitante(self.id_visitante)
+    entrada.resetear_contador_visitantes()
     self.dibujar_tabla_visitantes()
     self.id_visitante=None     
      

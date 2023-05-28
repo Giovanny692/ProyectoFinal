@@ -40,5 +40,10 @@ class Entrada:
          titulo = 'error'
          message = 'Seleccione una entrada para eliminarla' 
          messagebox.showinfo(titulo,message)   
-        self.cerrar_db()    
+        self.cerrar_db()  
+    def resetear_contador_visitantes(self):
+        self.conectar_db()
+        sql=f'UPDATE sqlite_sequence SET seq=1 WHERE name="visitantes"'
+        self.cursor.execute(sql)  
+        self.cerrar_db()
           
