@@ -124,8 +124,7 @@ class Hoja():
      boton_borrar = tk.Button(self.frame, text = 'Eliminar',command=self.remover_visitante)
      boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
-  
-  
+    
   def enable_espacios(self):
     self.checkbox_vehiculo.config(state='normal')
     self.entry_id.config(state='normal')   
