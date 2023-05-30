@@ -15,7 +15,8 @@ class Hoja():
     self.id_visitante=None
     self.crear_fmenu()
     self.crear_barramenu(root)
-    self.root.mainloop()
+    self.root.mainloop() 
+    self.frameresidentes = None
 
 
   def crear_fmenu(self):  
@@ -211,9 +212,3 @@ class Hoja():
     entrada.resetear_contador_visitantes()
     self.dibujar_tabla_visitantes()
     self.id_visitante=None     
-     
-      
-
-    
-
-  

@@ -46,4 +46,3 @@ class Entrada:
         sql=f'UPDATE sqlite_sequence SET seq=1 WHERE name="visitantes"'
         self.cursor.execute(sql)  
         self.cerrar_db()
-          
