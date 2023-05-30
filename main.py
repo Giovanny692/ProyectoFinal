@@ -1,4 +1,4 @@
-from hoja import Hoja
+from registro import Hoja
 
 def main():
   hoja = Hoja()

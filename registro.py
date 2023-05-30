@@ -9,7 +9,8 @@ class Hoja():
   def __init__(self,root = None):
     self.root = tk.Tk()
     self.root.title("Registro")
-    self.root.geometry("1300x600")
+    self.root.iconbitmap('img/lArrow.ico')
+    self.root.geometry("1300x650")
     self.frame=None
     self.framenovedades=None
     self.id_visitante=None
@@ -17,6 +18,7 @@ class Hoja():
     self.crear_barramenu(root)
     self.root.mainloop() 
     self.frameresidentes = None
+    
 
 
   def crear_fmenu(self):  
@@ -124,6 +126,10 @@ class Hoja():
      boton_borrar = tk.Button(self.frame, text = 'Eliminar',command=self.remover_visitante)
      boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
+
+     boton_parquedero = tk.Button(self.frame, text = 'Parquedero',command=self.remover_visitante)
+     boton_parquedero.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
+     boton_parquedero.grid(row =8, column=0, padx=10, pady=10)
   
   
   def enable_espacios(self):
