@@ -19,8 +19,6 @@ class Hoja():
     self.root.mainloop() 
     self.frameresidentes = None
     
-
-
   def crear_fmenu(self):  
     if (self.frame==None and self.framenovedades==None):      
      self.frame = tk.Frame(self.root)
