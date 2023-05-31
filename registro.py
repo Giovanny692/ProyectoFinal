@@ -4,6 +4,7 @@ from tkinter import ttk
 from persona import Persona
 from entrada import Entrada
 from novedad import Novedad
+from persona import Parqueadero
 
 class Hoja():
   def __init__(self,root = None):
@@ -70,7 +71,7 @@ class Hoja():
      label_id.grid(row = 3, column=0, padx= 10, pady=10)
      #Tiene vehiculo?
      self.checkbox_vehiculovar = tk.BooleanVar(self.frame)
-     self.checkbox_vehiculo = tk.Checkbutton(self.frame,text='¿tiene vehiculo?',variable=self.checkbox_vehiculovar,command=self.habilitar_placa,state='disabled')
+     self.checkbox_vehiculo = tk.Checkbutton(self.frame,text='¿Tiene vehiculo?',variable=self.checkbox_vehiculovar,command=self.habilitar_placa,state='disabled')
      self.checkbox_vehiculo.config(font= (('Arial', 12, 'bold')))
      self.checkbox_vehiculo.grid(row=4,column=0,padx=10,pady=10)
      #Placa del vehiculo
@@ -127,7 +128,7 @@ class Hoja():
      boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
 
-     boton_parquedero = tk.Button(self.frame, text = 'Parquedero',command=self.remover_visitante)
+     boton_parquedero = tk.Button(self.frame, text = 'Parquedero',command='')
      boton_parquedero.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_parquedero.grid(row =8, column=0, padx=10, pady=10)
   
@@ -157,7 +158,7 @@ class Hoja():
     self.horaentrada.set('')
     self.horasalida.set('')
   
-  #tabla de visitantes  
+  #Tabla de visitantes  
   def dibujar_tabla_visitantes(self):
     entrada = Entrada()    
     self.tabla_visitantes=ttk.Treeview(self.frame,column=('Nombre','ID','Hora entrada','Hora salida','Placa'))
@@ -178,6 +179,7 @@ class Hoja():
           
   
   def registrar_visitante(self):
+      self.parquedaero_prueba = Parqueadero()
       nombre = self.entry_nombre.get()
       identiciacion = self.entry_id.get()
       hora_entrada = self.entry_hora_entrada.get()
@@ -185,6 +187,9 @@ class Hoja():
       placa = self.entry_placa.get()
       visitante = Persona(hora_entrada,hora_salida,identiciacion,nombre,placa)
       entrada = Entrada()
+      if placa != "":
+        self.parquedaero_prueba.ingresar_persona(visitante)
+
       if self.id_visitante==None:
        entrada.registrar_visitante(visitante)
        entrada.cerrar_db()
@@ -217,4 +222,5 @@ class Hoja():
     entrada.eliminar_visitante(self.id_visitante)
     entrada.resetear_contador_visitantes()
     self.dibujar_tabla_visitantes()
-    self.id_visitante=None     
+    self.id_visitante=None
+         
