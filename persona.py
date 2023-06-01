@@ -19,4 +19,30 @@ class Trabajador(Persona):
     self.turno = turno
     self.t_aseo=t_aseo
 
+class Parqueadero():
+  def init(self):
+    self.cupo_disponible = 50 #Cupo parqueadero
+    self.parqueaderos = []
+
+  def  ingresar_persona(self, persona):
+    if self.cupo_disponible > 0:
+      self.parqueaderos.append(persona)
+      self.cupo_disponible -= 1
+      print(f"{persona.nombre} ha ingresado al parqueadero. Cupo disponible: {self.cupo_disponible}")
+    else:
+      print("No hay cupo disponible en el parqueadero.")
+
+  def retirar_persona(self, persona):
+      if persona in self.parqueaderos:
+        self.parqueados.remove(persona)
+        self.cupo_disponible += 1
+        print(f"{persona.nombre} ha salido del parqueadero. Cupo disponible: {self.cupo_disponible}")
+      else:
+        print(f"{persona.nombre} no se encuentra en el parqueadero.")
+
+  def imprimir_parqueadero(self):
+        print("Personas en el parqueadero:")
+        for persona in self.parqueaderos:
+            print(f"ID: {persona.id}, Nombre: {persona.nombre}, Placa: {persona.placa}")
+
     
