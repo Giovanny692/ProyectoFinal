@@ -90,4 +90,11 @@ class Entrada:
        WHERE Numero ='{numero}' """
        self.cursor.execute(sql)  
        self.cerrar_db()
-       
+
+    def listar_parqueadero (self):
+       self.conectar_db()
+       sql = 'SELECT * FROM parqueadero'  
+       self.cursor.execute(sql)
+       lista_parqueadero = self.cursor.fetchall()
+       self.cerrar_db()
+       return lista_parqueadero

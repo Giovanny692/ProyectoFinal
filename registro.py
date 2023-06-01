@@ -17,12 +17,13 @@ class Hoja():
     self.id_visitante=None
     self.id_residente=None
     self.frameresidentes = None
+    self.fparqueadero = None 
     self.crear_fmenu()
     self.crear_barramenu(root)
     self.root.mainloop() 
       
   def crear_fmenu(self):  
-    if (self.frame==None and self.framenovedades==None and self.frameresidentes==None):      
+    if (self.frame==None and self.framenovedades==None and self.frameresidentes==None and self.fparqueadero == None):      
      self.frame = tk.Frame(self.root)
      self.poner_camposvisitante()
      self.dibujar_tabla_visitantes()
@@ -44,6 +45,14 @@ class Hoja():
        self.dibujar_tabla_visitantes()
        self.frame.pack()       
        
+     elif (self.fparqueadero != None):
+       self.fparqueadero.destroy ()
+       self.fparqueadero = None
+       self.frame = tk.Frame(self.root)
+       self.poner_camposvisitante()
+       self.dibujar_tabla_visitantes()
+       self.frame.pack()
+
   def crear_fresidentes(self):
     if (self.frame != None):
       self.frame.destroy()
@@ -160,7 +169,7 @@ class Hoja():
      boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
 
-     boton_parquedero = tk.Button(self.frame, text = 'Parquedero',command='')
+     boton_parquedero = tk.Button(self.frame, text = 'Parquedero',command=self.frameparqueadero)
      boton_parquedero.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_parquedero.grid(row =8, column=0, padx=10, pady=10)
   
@@ -332,7 +341,7 @@ class Hoja():
      boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
 
-     boton_parquedero = tk.Button(self.frameresidentes, text = 'Parquedero',command='')
+     boton_parquedero = tk.Button(self.frameresidentes, text = 'Parquedero',command=self.frameparqueadero)
      boton_parquedero.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_parquedero.grid(row =8, column=0, padx=10, pady=10)
 
@@ -428,4 +437,25 @@ class Hoja():
     self.dibujar_tabla_residentes()
     self.id_residente=None
 
-  
+  def dibujar_tablaparqueadero(self):
+    entrada = Entrada()    
+    self.tabla_parqueadero=ttk.Treeview(self.fparqueadero,column=('Nombre','Placa','Estado'))
+    self.tabla_parqueadero.grid(row=0,column=0,columnspan=4,sticky='nse')
+    scroll = tk.Scrollbar(self.fparqueadero,orient='vertical',command=self.tabla_parqueadero.yview)
+    scroll.grid(row=0,column=5,sticky='nse')
+    self.tabla_parqueadero.configure(yscrollcommand=scroll.set)
+    self.tabla_parqueadero.heading('#0',text='Numero')
+    self.tabla_parqueadero.heading('#1',text='Nombre')
+    self.tabla_parqueadero.heading('#2',text='Placa')
+    self.tabla_parqueadero.heading('#3',text='Estado')
+    lista_parqueadero = entrada.listar_parqueadero()
+    lista_parqueadero.reverse()
+    for parqueadero in lista_parqueadero:
+          self.tabla_parqueadero.insert('',0,text=parqueadero[0],values=(parqueadero[1],parqueadero[2],parqueadero[3]))
+
+  def frameparqueadero (self):
+    self.frame.destroy ()
+    self.frame = None
+    self.fparqueadero = tk.Frame (self.root)
+    self.dibujar_tablaparqueadero ()
+    self.fparqueadero.pack ()
