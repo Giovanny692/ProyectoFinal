@@ -83,3 +83,11 @@ class Entrada:
         sql=f'UPDATE sqlite_sequence SET seq=1 WHERE name="residentes"'
         self.cursor.execute(sql)  
         self.cerrar_db()
+
+    def registrar_parqueadero (self, persona, numero):
+       self.conectar_db()
+       sql=f"""UPDATE parqueadero SET Nombre='{persona.nombre}', Placa ='{persona.placa}', Estado ='1'
+       WHERE Numero ='{numero}' """
+       self.cursor.execute(sql)  
+       self.cerrar_db()
+       

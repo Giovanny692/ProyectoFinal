@@ -25,7 +25,4 @@ class Trabajador(Persona):
 class Parqueadero():
   def init(self):
     self.cupo_disponible = 50 #Cupo parqueadero
-    self.parqueaderos = []
-
-
-    
+    self.parqueaderos = []    

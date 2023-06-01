@@ -103,6 +103,10 @@ class Hoja():
      self.checkbox_vehiculo = tk.Checkbutton(self.frame,text='¿Tiene vehiculo?',variable=self.checkbox_vehiculovar,command=self.habilitar_placa,state='disabled')
      self.checkbox_vehiculo.config(font= (('Arial', 12, 'bold')))
      self.checkbox_vehiculo.grid(row=4,column=0,padx=10,pady=10)
+     #Combobox
+     self.espacio = ttk.Combobox(self.frame, state='disabled', values=("1","2","3","4","5","6","7","8","9","10"))
+     self.espacio.grid (row=4, column=1, padx =10, pady=10)
+
      #Placa del vehiculo
      label_placa=tk.Label(self.frame, text="Placa")
      label_placa.config(font= (('Arial', 12, 'bold')))
@@ -169,8 +173,11 @@ class Hoja():
   def habilitar_placa(self):
     if self.checkbox_vehiculovar.get():    
      self.entry_placa.config(state='normal')
+     self.espacio.config (state= 'readonly')
     else:
       self.entry_placa.config(state='disabled')
+      self.espacio.config (state= 'disabled')
+
   def desable_espacios(self):
     self.checkbox_vehiculo.config(state='disabled') 
     self.entry_id.config(state='disabled')       
@@ -214,7 +221,7 @@ class Hoja():
       visitante = Persona(hora_entrada,hora_salida,identificacion,nombre,placa)
       entrada = Entrada()
       if placa != "":
-        self.parquedaero_prueba.ingresar_persona(visitante)
+        entrada.registrar_parqueadero (visitante, self.espacio.get())
 
       if self.id_visitante==None:
        entrada.registrar_visitante(visitante)
@@ -385,7 +392,7 @@ class Hoja():
       residente = Residente (residencia, fecha_entrada ,identificacion, nombre,placa)
       entrada = Entrada()
       if placa != "":
-        pass
+        pass 
 
       if self.id_residente==None:
        entrada.registrar_residente(residente)
@@ -420,3 +427,5 @@ class Hoja():
     entrada.resetear_contador_residentes()
     self.dibujar_tabla_residentes()
     self.id_residente=None
+
+  
