@@ -98,3 +98,10 @@ class Entrada:
        lista_parqueadero = self.cursor.fetchall()
        self.cerrar_db()
        return lista_parqueadero
+    def limpiar_parqueadero(self,numero):
+       self.conectar_db()
+       sql=f"""UPDATE parqueadero SET Nombre='', Placa ='', Estado ='None'
+       WHERE Numero ='{numero}' """
+       self.cursor.execute(sql)  
+       self.cerrar_db()
+       

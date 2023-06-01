@@ -229,7 +229,7 @@ class Hoja():
       placa = self.entry_placa.get()
       visitante = Persona(hora_entrada,hora_salida,identificacion,nombre,placa)
       entrada = Entrada()
-      if placa != "":
+      if (placa != "" and hora_salida == ''):
         entrada.registrar_parqueadero (visitante, self.espacio.get())
 
       if self.id_visitante==None:
@@ -458,4 +458,12 @@ class Hoja():
     self.frame = None
     self.fparqueadero = tk.Frame (self.root)
     self.dibujar_tablaparqueadero ()
+    boton_limpiar = tk.Button(self.fparqueadero,text='Limpiar',command=self.limpiar_parqueadero)
+    boton_limpiar.grid(row=1,column=0,padx=10,pady=10)
+    boton_limpiar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
     self.fparqueadero.pack ()
+  def limpiar_parqueadero(self):
+    id_parq=self.tabla_parqueadero.item(self.tabla_parqueadero.selection())['text']
+    entrada = Entrada()
+    entrada.limpiar_parqueadero(id_parq)
+    self.dibujar_tablaparqueadero()  
