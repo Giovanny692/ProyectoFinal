@@ -9,7 +9,8 @@ class Novedad():
     def crear_frame_novedad(self,root):
         self.frame_novedad = tk.Frame(root)
         self.poner_espacios()
-        self.frame_novedad.pack()   
+        self.frame_novedad.pack()
+
     def poner_espacios(self):
         label_titulo=tk.Label(self.frame_novedad,text='Hacer novedad') 
         label_titulo.config(font= (('Arial', 12, 'bold')))
@@ -35,7 +36,6 @@ class Novedad():
           archivo = open(nombre_archivo,'x')
           archivo.write(self.entry_novedad.get("1.0","end-1c"))
           archivo.close  
-        
         
     def borrar_frame_novedad(self):
         self.frame_novedad.destroy()    
