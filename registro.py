@@ -4,6 +4,7 @@ from tkinter import ttk
 from persona import Persona
 from entrada import Entrada
 from novedad import Novedad
+from persona import Residente, Parqueadero
 
 class Hoja():
   def __init__(self,root = None):
@@ -14,6 +15,7 @@ class Hoja():
     self.frame=None
     self.framenovedades=None
     self.id_visitante=None
+    self.id_residente=None
     self.frameresidentes = None
     self.crear_fmenu()
     self.crear_barramenu(root)
@@ -133,7 +135,6 @@ class Hoja():
      self.entry_placa.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
      self.entry_placa.grid(row = 5, column=1, padx= 10, pady=10)
         
-        
      #Botones
      boton_nuevo = tk.Button(self.frame, text = 'Nuevo',command=self.enable_espacios)
      boton_nuevo.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
@@ -206,11 +207,11 @@ class Hoja():
   def registrar_visitante(self):
       self.parquedaero_prueba = Parqueadero()
       nombre = self.entry_nombre.get()
-      identiciacion = self.entry_id.get()
+      identificacion = self.entry_id.get()
       hora_entrada = self.entry_hora_entrada.get()
       hora_salida = self.entry_hora_salida.get()
       placa = self.entry_placa.get()
-      visitante = Persona(hora_entrada,hora_salida,identiciacion,nombre,placa)
+      visitante = Persona(hora_entrada,hora_salida,identificacion,nombre,placa)
       entrada = Entrada()
       if placa != "":
         self.parquedaero_prueba.ingresar_persona(visitante)
@@ -251,26 +252,26 @@ class Hoja():
 
   def poner_camposresidente (self):
      #nombre
-     label_nombre = tk.Label(self.frameresidentes, text='Nombre: ')
-     label_nombre.config(font= (('Arial', 12, 'bold')))
-     label_nombre.grid(row = 0, column=0, padx= 10, pady=10)
+     label_nombrer = tk.Label(self.frameresidentes, text='Nombre: ')
+     label_nombrer.config(font= (('Arial', 12, 'bold')))
+     label_nombrer.grid(row = 0, column=0, padx= 10, pady=10)
      #ID
-     label_id = tk.Label(self.frameresidentes, text='ID:')
-     label_id.config(font= (('Arial', 12, 'bold')))
-     label_id.grid(row=1,column=0,padx=10,pady=10)
+     label_idr = tk.Label(self.frameresidentes, text='ID:')
+     label_idr.config(font= (('Arial', 12, 'bold')))
+     label_idr.grid(row=1,column=0,padx=10,pady=10)
      #Fecha entrada 
-     label_duracion = tk.Label(self.frameresidentes, text='Fecha de ingreso: ')
-     label_duracion.config(font= (('Arial', 12, 'bold')))
-     label_duracion.grid(row = 2, column=0, padx= 10, pady=10)
+     label_duracionr = tk.Label(self.frameresidentes, text='Fecha de ingreso: ')
+     label_duracionr.config(font= (('Arial', 12, 'bold')))
+     label_duracionr.grid(row = 2, column=0, padx= 10, pady=10)
      #Tiene vehiculo?
-     self.checkbox_vehiculovar = tk.BooleanVar(self.frameresidentes)
-     self.checkbox_vehiculo = tk.Checkbutton(self.frameresidentes,text='¿Tiene vehiculo?',variable=self.checkbox_vehiculovar,command=self.habilitar_placa,state='disabled')
-     self.checkbox_vehiculo.config(font= (('Arial', 12, 'bold')))
-     self.checkbox_vehiculo.grid(row=3,column=0,padx=10,pady=10)
+     self.checkbox_vehiculovarr = tk.BooleanVar(self.frameresidentes)
+     self.checkbox_vehiculor = tk.Checkbutton(self.frameresidentes,text='¿Tiene vehiculo?',variable=self.checkbox_vehiculovarr,command=self.habilitar_placar,state='disabled')
+     self.checkbox_vehiculor.config(font= (('Arial', 12, 'bold')))
+     self.checkbox_vehiculor.grid(row=3,column=0,padx=10,pady=10)
      #Placa del vehiculo
-     label_placa=tk.Label(self.frameresidentes, text="Placa")
-     label_placa.config(font= (('Arial', 12, 'bold')))
-     label_placa.grid(row=4,column=0,padx=10,pady=10)
+     label_placar=tk.Label(self.frameresidentes, text="Placa")
+     label_placar.config(font= (('Arial', 12, 'bold')))
+     label_placar.grid(row=4,column=0,padx=10,pady=10)
      #Residencia
      label_residencia = tk.Label (self.frameresidentes, text= "Residencia")
      label_residencia.config (font= (('Arial', 12, 'bold')))
@@ -278,25 +279,25 @@ class Hoja():
      
      #Entrada de cada campo
      #Nombre
-     self.nombre=tk.StringVar()
-     self.entry_nombre = tk.Entry(self.frameresidentes,textvariable=self.nombre)
-     self.entry_nombre.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
-     self.entry_nombre.grid(row = 0, column=1, padx= 10, pady=10)
+     self.nombrer=tk.StringVar()
+     self.entry_nombrer = tk.Entry(self.frameresidentes,textvariable=self.nombrer)
+     self.entry_nombrer.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
+     self.entry_nombrer.grid(row = 0, column=1, padx= 10, pady=10)
      #ID
-     self.id=tk.StringVar()
-     self.entry_id= tk.Entry(self.frameresidentes,textvariable=self.id)
-     self.entry_id.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
-     self.entry_id.grid(row = 1, column=1, padx= 10, pady=10)
+     self.idr=tk.StringVar()
+     self.entry_idr= tk.Entry(self.frameresidentes,textvariable=self.idr)
+     self.entry_idr.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
+     self.entry_idr.grid(row = 1, column=1, padx= 10, pady=10)
      #Fecha entrada
      self.fechaentrada=tk.StringVar()
      self.entry_fecha_entrada = tk.Entry(self.frameresidentes , textvariable=self.fechaentrada)
      self.entry_fecha_entrada.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
      self.entry_fecha_entrada.grid(row = 2, column=1, padx= 10, pady=10)
      #Placa vehiculo
-     self.placa=tk.StringVar()
-     self.entry_placa=tk.Entry(self.frameresidentes,textvariable=self.placa)
-     self.entry_placa.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
-     self.entry_placa.grid(row = 3, column=1, padx= 10, pady=10)
+     self.placar=tk.StringVar()
+     self.entry_placar=tk.Entry(self.frameresidentes,textvariable=self.placar)
+     self.entry_placar.config(width= 50, state= 'disabled' ,font= (('Arial', 12)))
+     self.entry_placar.grid(row = 4, column=1, padx= 10, pady=10)
      #Residencia
      self.residencia=tk.StringVar()
      self.entry_residencia=tk.Entry(self.frameresidentes,textvariable=self.residencia)
@@ -304,29 +305,56 @@ class Hoja():
      self.entry_residencia.grid(row = 5, column= 1, padx=10, pady=10)
 
      #Botones
-     boton_nuevo = tk.Button(self.frameresidentes, text = 'Nuevo',command=self.enable_espacios)
+     boton_nuevo = tk.Button(self.frameresidentes, text = 'Nuevo',command=self.enable_espaciosresidente)
      boton_nuevo.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_nuevo.grid(row =6, column=0, padx=10, pady=10)
 
-     boton_guardar = tk.Button(self.frameresidentes, text = 'Guardar',command=self.registrar_visitante)
+     boton_guardar = tk.Button(self.frameresidentes, text = 'Guardar',command=self.registrar_residentes)
      boton_guardar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_guardar.grid(row =6, column=1, padx=10, pady=10)
     
-     boton_cancelar = tk.Button(self.frameresidentes, text = 'Cancelar',command=self.desable_espacios)
+     boton_cancelar = tk.Button(self.frameresidentes, text = 'Cancelar',command=self.desable_espaciosr)
      boton_cancelar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_cancelar.grid(row =6, column=2, padx=10, pady=10)
      
-     boton_editar = tk.Button(self.frameresidentes, text = 'Editar',command=self.editar_visitante)
+     boton_editar = tk.Button(self.frameresidentes, text = 'Editar',command=self.editar_residente)
      boton_editar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_editar.grid(row =8, column=1, padx=10, pady=10)
      
-     boton_borrar = tk.Button(self.frameresidentes, text = 'Eliminar',command=self.remover_visitante)
+     boton_borrar = tk.Button(self.frameresidentes, text = 'Eliminar',command=self.remover_residente)
      boton_borrar.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
 
      boton_parquedero = tk.Button(self.frameresidentes, text = 'Parquedero',command='')
      boton_parquedero.config(width=20, font=('Arial', 12, 'bold'), fg='#DAD5D6', bg='#FF5733', cursor='hand2', activebackground='#35BD6F')
      boton_parquedero.grid(row =8, column=0, padx=10, pady=10)
+
+  def enable_espaciosresidente(self):
+    self.checkbox_vehiculor.config(state='normal')
+    self.entry_idr.config(state='normal')   
+    self.entry_fecha_entrada.config(state='normal')
+    self.entry_residencia.config(state='normal')
+    self.entry_nombrer.config(state='normal')
+
+  def habilitar_placar(self):
+    if self.checkbox_vehiculovarr.get():    
+     self.entry_placar.config(state='normal')
+    else:
+      self.entry_placar.config(state='disabled')
+
+  def desable_espaciosr(self):
+    self.checkbox_vehiculor.config(state='disabled') 
+    self.entry_idr.config(state='disabled')       
+    self.entry_fecha_entrada.config(state='disabled')
+    self.entry_nombrer.config(state='disabled')
+    self.entry_placar.config(state='disabled')
+    self.entry_residencia.config(state='disabled')
+    self.checkbox_vehiculovar.set(False)
+    self.nombrer.set('')
+    self.placar.set('')
+    self.idr.set('')
+    self.fechaentrada.set('')
+    self.residencia.set('')
 
   #Tabla de residenets  
   def dibujar_tabla_residentes(self):
@@ -346,3 +374,49 @@ class Hoja():
     lista_residentes.reverse()
     for residente in lista_residentes:
           self.tabla_residentes.insert('',0,text=residente[0],values=(residente[1],residente[2],residente[3],residente[4],residente[5]))
+
+  def registrar_residentes(self):
+      self.parquedaero_prueba = Parqueadero()
+      nombre = self.entry_nombrer.get()
+      identificacion = self.entry_idr.get()
+      fecha_entrada = self.entry_fecha_entrada.get()
+      placa = self.entry_placar.get()
+      residencia = self.entry_residencia.get()
+      residente = Residente (residencia, fecha_entrada ,identificacion, nombre,placa)
+      entrada = Entrada()
+      if placa != "":
+        pass
+
+      if self.id_residente==None:
+       entrada.registrar_residente(residente)
+       entrada.cerrar_db()
+       self.dibujar_tabla_residentes()
+       self.desable_espaciosr()
+      else:
+       entrada.editar_residente(residente,self.id_residente)
+       self.dibujar_tabla_residentes()   
+       self.desable_espaciosr()
+       self.id_visitante=None   
+      
+  def editar_residente(self):
+    self.id_residente=self.tabla_residentes.item(self.tabla_residentes.selection())['text']
+    nombrev = self.tabla_residentes.item(self.tabla_residentes.selection())['values'][0]
+    idv = self.tabla_residentes.item(self.tabla_residentes.selection())['values'][1] 
+    fechaev = self.tabla_residentes.item(self.tabla_residentes.selection())['values'][2] 
+    placav = self.tabla_residentes.item(self.tabla_residentes.selection())['values'][3]
+    residenciav = self.tabla_residentes.item(self.tabla_residentes.selection())['values'][4] 
+    self.enable_espaciosresidente()
+    self.entry_nombrer.insert(0,nombrev)
+    self.entry_idr.insert(0,idv)
+    self.entry_fecha_entrada.insert(0,fechaev)
+    self.entry_placar.insert(0,placav)
+    self.entry_placar.config(state='normal')
+    self.entry_residencia.insert(0,residenciav)  
+  
+  def remover_residente(self):
+    self.id_residente=self.tabla_residentes.item(self.tabla_residentes.selection())['text']
+    entrada = Entrada()
+    entrada.eliminar_residente(self.id_residente)
+    entrada.resetear_contador_residentes()
+    self.dibujar_tabla_residentes()
+    self.id_residente=None

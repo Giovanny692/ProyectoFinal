@@ -50,8 +50,8 @@ class Entrada:
     #tabla residentes
     def registrar_residente(self,persona):
         self.conectar_db()
-        sql = f"""INSERT INTO residentes (Nombre, Identificacion, Fecha_ingreso, Fecha_salida, Placa, Residencia) 
-        VALUES('{persona.nombre}','{persona.id}','{persona.hora_entrada}','{persona.hora_salida}','{persona.placa}','{Residente.residencia}')"""
+        sql = f"""INSERT INTO residentes (Nombre, Identificacion, Fecha_ingreso, Placa, Residencia) 
+        VALUES('{persona.nombre}','{persona.id}','{persona.fecha_entrada}','{persona.placa}','{persona.residencia}')"""
         self.cursor.execute(sql)
     def listar_residentes(self):
         self.conectar_db()
@@ -63,7 +63,7 @@ class Entrada:
     def editar_residente(self,persona,id_persona):
         self.conectar_db()
         sql = f"""UPDATE residentes SET Nombre='{persona.nombre}',Identificacion='{persona.id}',
-        Fecha_infreso='{persona.hora_entrada}',Fecha_salida='{persona.hora_salida}',Placa='{persona.placa}'
+        Fecha_ingreso='{persona.fecha_entrada}',Placa='{persona.placa}'
         WHERE numero={id_persona}"""
         self.cursor.execute(sql)
         self.cerrar_db()
@@ -77,3 +77,9 @@ class Entrada:
          message = 'Seleccione una entrada para eliminarla' 
          messagebox.showinfo(titulo,message)   
         self.cerrar_db()  
+
+    def resetear_contador_residentes(self):
+        self.conectar_db()
+        sql=f'UPDATE sqlite_sequence SET seq=1 WHERE name="residentes"'
+        self.cursor.execute(sql)  
+        self.cerrar_db()
