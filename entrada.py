@@ -1,6 +1,5 @@
 #clase que maneja coneccion a base de datos
 import sqlite3
-from persona import Persona, Residente
 from tkinter import messagebox
 class Entrada:
     
