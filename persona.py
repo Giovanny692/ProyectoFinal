@@ -16,13 +16,4 @@ class Residente(Persona):
     self.placa = placa
     self.residencia = residencia
 
-class Trabajador(Persona):
-  def __init__(self,turno,horas,id,nombre,t_aseo):
-    super().__init__(horas,id,nombre)
-    self.turno = turno
-    self.t_aseo=t_aseo
-
-class Parqueadero():
-  def init(self):
-    self.cupo_disponible = 50 #Cupo parqueadero
-    self.parqueaderos = []    
+  

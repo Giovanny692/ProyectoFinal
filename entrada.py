@@ -83,24 +83,4 @@ class Entrada:
         self.cursor.execute(sql)  
         self.cerrar_db()
 
-    def registrar_parqueadero (self, persona, numero):
-       self.conectar_db()
-       sql=f"""UPDATE parqueadero SET Nombre='{persona.nombre}', Placa ='{persona.placa}', Estado ='1'
-       WHERE Numero ='{numero}' """
-       self.cursor.execute(sql)  
-       self.cerrar_db()
-
-    def listar_parqueadero (self):
-       self.conectar_db()
-       sql = 'SELECT * FROM parqueadero'  
-       self.cursor.execute(sql)
-       lista_parqueadero = self.cursor.fetchall()
-       self.cerrar_db()
-       return lista_parqueadero
-    def limpiar_parqueadero(self,numero):
-       self.conectar_db()
-       sql=f"""UPDATE parqueadero SET Nombre='', Placa ='', Estado ='None'
-       WHERE Numero ='{numero}' """
-       self.cursor.execute(sql)  
-       self.cerrar_db()
-       
+    
