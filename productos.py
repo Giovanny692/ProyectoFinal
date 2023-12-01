@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from entrada import Entrada
 from persona import Persona, Residente
+
 #product - factory method
 class Frame(tk.Frame):
     def __init__(self,root):
@@ -31,6 +32,7 @@ class Frame(tk.Frame):
 class Frame_Visitantes(Frame):
     def __init__(self, root):
         super().__init__(root)
+        self.funcionamiento=funcionamiento_visitante()
         self.id_visitante=None
         
     def poner_espacios(self):
@@ -112,25 +114,8 @@ class Frame_Visitantes(Frame):
      boton_borrar.grid(row =8, column=2, padx=10, pady=10)
 
     def registrar_visitante(self):
-      nombre = self.entry_nombre.get()
-      identificacion = self.entry_id.get()
-      hora_entrada = self.entry_hora_entrada.get()
-      hora_salida = self.entry_hora_salida.get()
-      placa = self.entry_placa.get()
-      visitante = Persona(hora_entrada,hora_salida,identificacion,nombre,placa)
-      entrada = Entrada()
-      if (placa != "" and hora_salida == ''):
-        entrada.registrar_parqueadero (visitante, self.espacio.get())
-      if self.id_visitante==None:
-       entrada.registrar_visitante(visitante)
-       entrada.cerrar_db()
-       self.dibujar_tabla()
-       self.desable_espacios()
-      else:
-       entrada.editar_visitante(visitante,self.id_visitante)
-       self.dibujar_tabla()   
-       self.desable_espacios()
-       self.id_visitante=None  
+        entrada=Entrada()
+        self.funcionamiento.registrar(self,entrada,self.id_visitante) 
     def desable_espacios(self):
         self.checkbox_vehiculo.config(state='disabled') 
         self.entry_id.config(state='disabled')       
@@ -159,19 +144,7 @@ class Frame_Visitantes(Frame):
         self.espacio.config (state= 'disabled')
          
     def editar_visitante(self):
-     self.id_visitante=self.tabla_visitantes.item(self.tabla_visitantes.selection())['text']
-     nombrev = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][0]
-     idv = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][1] 
-     horaaenv = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][2] 
-     horasalv = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][3]
-     placav = self.tabla_visitantes.item(self.tabla_visitantes.selection())['values'][4] 
-     self.enable_espacios()
-     self.entry_nombre.insert(0,nombrev)
-     self.entry_id.insert(0,idv)
-     self.entry_hora_entrada.insert(0,horaaenv)
-     self.entry_hora_salida.insert(0,horasalv)
-     self.entry_placa.config(state='normal')
-     self.entry_placa.insert(0,placav)
+     self.funcionamiento.editar(self)
      
     def dibujar_tabla(self):
      entrada = Entrada()    
@@ -192,17 +165,14 @@ class Frame_Visitantes(Frame):
           self.tabla_visitantes.insert('',0,text=visitante[0],values=(visitante[1],visitante[2],visitante[3],visitante[4],visitante[5])) 
     
     def remover_visitante(self):
-     self.id_visitante=self.tabla_visitantes.item(self.tabla_visitantes.selection())['text']
-     entrada = Entrada()
-     entrada.eliminar_visitante(self.id_visitante)
-     entrada.resetear_contador_visitantes()
-     self.dibujar_tabla()
-     self.id_visitante=None
+     entrada=Entrada()
+     self.funcionamiento.eliminar(self,entrada,self.id_visitante)
 
 #concrete product B    
 class FrameResidentes(Frame):
     def __init__(self, root):
            super().__init__(root)
+           self.funcionamiento=funcionamiento_residente()
            self.id_residente=None
               
     def poner_espacios(self):
@@ -302,26 +272,8 @@ class FrameResidentes(Frame):
      self.residencia.set('')
     
     def registrar_residentes(self):
-      nombre = self.entry_nombrer.get()
-      identificacion = self.entry_idr.get()
-      fecha_entrada = self.entry_fecha_entrada.get()
-      placa = self.entry_placar.get()
-      residencia = self.entry_residencia.get()
-      residente = Residente (residencia, fecha_entrada ,identificacion, nombre,placa)
-      entrada = Entrada()
-      if placa != "":
-        pass 
-
-      if self.id_residente==None:
-       entrada.registrar_residente(residente)
-       entrada.cerrar_db()
-       self.dibujar_tabla()
-       self.disable_espacios()
-      else:
-       entrada.editar_residente(residente,self.id_residente)
-       self.dibujar_tabla()   
-       self.disable_espacios()
-       self.id_visitante=None
+     entrada = Entrada()
+     self.funcionamiento.registrar(self,entrada,self.id_residente)
     
     def dibujar_tabla(self):
       entrada = Entrada()    
@@ -342,12 +294,8 @@ class FrameResidentes(Frame):
        self.tabla_residentes.insert('',0,text=residente[0],values=(residente[1],residente[2],residente[3],residente[4],residente[5]))
     
     def remover_residente(self):
-      self.id_residente=self.tabla_residentes.item(self.tabla_residentes.selection())['text']
-      entrada = Entrada()
-      entrada.eliminar_residente(self.id_residente)
-      entrada.resetear_contador_residentes()
-      self.dibujar_tabla()
-      self.id_residente=None 
+       entrada = Entrada()
+       self.funcionamiento.eliminar(self,entrada,self.id_residente)
     
     def habilitar_placar(self):
      if self.checkbox_vehiculovar.get():    
@@ -370,5 +318,95 @@ class FrameResidentes(Frame):
      self.entry_placar.config(state='normal')
      self.entry_residencia.insert(0,residenciav)       
  
-                        
+#implementacion
+class funcionamiento():    
+    def registrar(self,frame:Frame,entrada:Entrada,id):      
+        pass
+    def eliminar(self,frame:Frame,entrada:Entrada,id):
+        pass 
+    def editar(self,frame:Frame):
+        pass   
+#implementacion_concreta1
+class funcionamiento_visitante(funcionamiento):
+    def registrar(self,frame:Frame_Visitantes,entrada:Entrada,id_visitante):
+        nombre = frame.entry_nombre.get()
+        identificacion = frame.entry_id.get()
+        hora_entrada = frame.entry_hora_entrada.get()
+        hora_salida = frame.entry_hora_salida.get()
+        placa = frame.entry_placa.get()
+        visitante = Persona(hora_entrada,hora_salida,identificacion,nombre,placa)
+        if id_visitante==None:
+           entrada.registrar_visitante(visitante)
+           entrada.cerrar_db()
+           frame.dibujar_tabla()
+           frame.desable_espacios()
+        else:
+           entrada.editar_visitante(visitante,id_visitante)
+           frame.dibujar_tabla()   
+           frame.desable_espacios()
+           id_visitante=None 
+    def eliminar(self, frame: Frame_Visitantes,entrada:Entrada,id_visitante):
+           id_visitante=frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['text']
+           entrada = Entrada()
+           entrada.eliminar_visitante(id_visitante)
+           entrada.resetear_contador_visitantes()
+           frame.dibujar_tabla()
+           frame.id_visitante=None
+    def editar(self,frame:Frame_Visitantes):
+           frame.id_visitante=frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['text']
+           nombrev = frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['values'][0]
+           idv = frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['values'][1] 
+           horaaenv = frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['values'][2] 
+           horasalv = frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['values'][3]
+           placav = frame.tabla_visitantes.item(frame.tabla_visitantes.selection())['values'][4] 
+           frame.enable_espacios()
+           frame.entry_nombre.insert(0,nombrev)
+           frame.entry_id.insert(0,idv)
+           frame.entry_hora_entrada.insert(0,horaaenv)
+           frame.entry_hora_salida.insert(0,horasalv)
+           frame.entry_placa.config(state='normal')
+           frame.entry_placa.insert(0,placav)  
+
+#implementacion concreta 2
+class funcionamiento_residente(funcionamiento):
+    def registrar(self, frame: FrameResidentes, entrada: Entrada, id_residente):
+           nombre = frame.entry_nombrer.get()
+           identificacion = frame.entry_idr.get()
+           fecha_entrada = frame.entry_fecha_entrada.get()
+           placa = frame.entry_placar.get()
+           residencia = frame.entry_residencia.get()
+           residente = Residente (residencia, fecha_entrada ,identificacion, nombre,placa)
+           entrada = Entrada()  
+           if id_residente==None:
+              entrada.registrar_residente(residente)
+              entrada.cerrar_db()
+              frame.dibujar_tabla()
+              frame.disable_espacios()
+           else:
+             entrada.editar_residente(residente,id_residente)
+             frame.dibujar_tabla()   
+             frame.disable_espacios()
+             frame.id_residente=None
+    def eliminar(self, frame: FrameResidentes, entrada: Entrada, id_residente):
+         id_residente=frame.tabla_residentes.item(frame.tabla_residentes.selection())['text']
+         entrada = Entrada()
+         entrada.eliminar_residente(id_residente)
+         entrada.resetear_contador_residentes()
+         frame.dibujar_tabla()
+         frame.id_residente=None 
+    def editar(self, frame: FrameResidentes):
+         frame.id_residente=frame.tabla_residentes.item(frame.tabla_residentes.selection())['text']
+         nombrev = frame.tabla_residentes.item(frame.tabla_residentes.selection())['values'][0]
+         idv = frame.tabla_residentes.item(frame.tabla_residentes.selection())['values'][1] 
+         fechaev = frame.tabla_residentes.item(frame.tabla_residentes.selection())['values'][2] 
+         placav = frame.tabla_residentes.item(frame.tabla_residentes.selection())['values'][3]
+         residenciav = frame.tabla_residentes.item(frame.tabla_residentes.selection())['values'][4] 
+         frame.enable_espacios()
+         frame.entry_nombrer.insert(0,nombrev)
+         frame.entry_idr.insert(0,idv)
+         frame.entry_fecha_entrada.insert(0,fechaev)
+         frame.entry_placar.insert(0,placav)
+         frame.entry_placar.config(state='normal')
+         frame.entry_residencia.insert(0,residenciav)       
+                                
         
